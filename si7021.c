@@ -8,7 +8,7 @@
 
 void main()
 {
-    char regAddress[] = {0xE5, 0xE0};
+    char regAddress[] = {0xF5, 0xF3};
     char humidityCode[2] = {0};
     char temperatureCode[2] = {0};
     float humidityValue = 0, temperatureValue = 0; 
