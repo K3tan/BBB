@@ -43,4 +43,22 @@ void main()
 		printf("Relative Humidity : %.2f RH \n", humidityValue);
 	}
 
+    // Send temperature measurement command(0xE0)
+	write(i2cBus, regAddress[1], 1);
+	sleep(1);
+
+	// Read 2 bytes of temperature data
+	if(read(i2cBus, temperatureCode, 2) != 2)
+	{
+		printf("Error : Input/output Error \n");
+	}
+	else
+	{
+		// Convert the data
+		temperatureValue = (((temperatureCode[0] * 256 + temperatureCode[1]) * 175.72) / 65536.0) - 46.85;
+
+		// Output data to screen
+		printf("Temperature : %.2f C \n", temperatureValue);
+	}
+
 }
