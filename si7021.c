@@ -8,7 +8,7 @@
 
 void main()
 {
-    char regAddress[] = {0xE5, 0xE3};
+    char regAddress[] = {0xF5, 0xF3, 0xFE};
     char humidityCode[2] = {0};
     char temperatureCode[2] = {0};
     float humidityValue = 0, temperatureValue = 0; 
@@ -24,6 +24,10 @@ void main()
 	}
 
     ioctl(i2cBus, I2C_SLAVE, 0x40);
+
+	// Send soft reset command(0xFE)
+	write(i2cBus, regAddress[2], 1);
+	sleep(1);
 
     // Send humidity measurement command(0xF5)
 	write(i2cBus, regAddress[0], 1);
@@ -61,4 +65,5 @@ void main()
 		printf("Temperature : %.2f C \n", temperatureValue);
 	}
 
+	close(bus);
 }
