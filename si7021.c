@@ -29,7 +29,7 @@ void main()
 
 	// Send humidity measurement command(0xF5)
 	write(i2cBus, regAddress[0], 1);
-	sleep(0.1);
+	sleep(1);
 
 	// Read 2 bytes of humidity data
 	if(read(i2cBus, humidityCode, 2) != 2)
@@ -47,7 +47,7 @@ void main()
 
     // Send temperature measurement command(0xE0)
 	write(i2cBus, regAddress[1], 1);
-	sleep(0.11);
+	sleep(1);
 
 	// Read 2 bytes of temperature data
 	if(read(i2cBus, temperatureCode, 2) != 2)
