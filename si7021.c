@@ -14,7 +14,7 @@ void main()
     float humidityValue = 0, temperatureValue = 0; 
 
 	// Initial power on setup time
-	usleep(80);
+	//usleep(80);
 
 	// Create I2C bus
 	int i2cBus;
