@@ -39,7 +39,7 @@ int main (void) {
     read(fd, temperature_result, 2);
     printf("0x%02X 0x%02X \n", temperature_result[0], temperature_result[1]);
     temperature = ((((temperature_result[0] * 256 + temperature_result[1]) * 175.72) / 65536.0) - 46.85);
-    printf("%.2lf%%\n", temperature);
+    printf("%.2lfC\n", temperature);
     
     return 0;
 }
