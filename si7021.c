@@ -30,6 +30,8 @@ void main()
 	write(i2cBus, 0xFE, 1);
 	sleep(1);
 	
+	while(1)
+	{
 	// Send humidity measurement command(0xE5)
 	write(i2cBus, regAddress[0], 1);
 	sleep(1);
@@ -65,6 +67,7 @@ void main()
 		// Output data to screen
 		printf("Temperature : %.2f C \n", temperatureValue);
 	}
-
+	sleep(5);
+}
 	close(bus);
 }
