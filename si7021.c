@@ -25,8 +25,11 @@ void main()
 		exit(1);
 	}
 
-    ioctl(i2cBus, I2C_SLAVE, 0x40);
+    	ioctl(i2cBus, I2C_SLAVE, 0x40);
 
+	write(i2cBus, 0xFE, 1);
+	sleep(1);
+	
 	// Send humidity measurement command(0xF5)
 	write(i2cBus, regAddress[0], 1);
 	sleep(1);
