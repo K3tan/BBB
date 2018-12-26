@@ -14,7 +14,7 @@ void main()
     float humidityValue = 0, temperatureValue = 0; 
 
 	// Initial power on setup time
-	//usleep(80);
+	
 
 	// Create I2C bus
 	int i2cBus;
@@ -29,7 +29,7 @@ void main()
 
 	// Send humidity measurement command(0xF5)
 	write(i2cBus, regAddress[0], 1);
-	usleep(12);
+	sleep(0.1);
 
 	// Read 2 bytes of humidity data
 	if(read(i2cBus, humidityCode, 2) != 2)
@@ -47,7 +47,7 @@ void main()
 
     // Send temperature measurement command(0xE0)
 	write(i2cBus, regAddress[1], 1);
-	usleep(10.8);
+	sleep(0.11);
 
 	// Read 2 bytes of temperature data
 	if(read(i2cBus, temperatureCode, 2) != 2)
