@@ -28,7 +28,7 @@ int main (void) {
 
     read(fd, result, 2);
     printf("0x%02X 0x%02X \n", result[0], result[1]);
-    humidity = (double) ((((result[0] * 256 + result[1]) * 125) / 65536) - 6);
-    printf("%lf %%", humidity);
+    humidity = (double) ((((result[0] * 256.0 + result[1]) * 125.0) / 65536.0) - 6.0);
+    printf("%lf%%\n", humidity);
     return 0;
 }
