@@ -6,7 +6,9 @@
 #define I2C_ADDR 0x40
 
 int main (void) {
-    char buffer[2];
+    char buffer[1];
+    char result[2];
+    double humidity = 0;
     int fd;
 
     fd = open("/dev/i2c-2", O_RDWR);
@@ -24,7 +26,9 @@ int main (void) {
     buffer[0]=0xE5;
     write(fd, buffer, 1);
 
-    read(fd, buffer, 2);
-    printf("0x%02X 0x%02X \n", buffer[0], buffer[1]);
+    read(fd, result, 2);
+    printf("0x%02X 0x%02X \n", result[0], result[1]);
+    humidity = (double) ((((result[0] * 256 + result[1]) * 125) / 65536) - 6);
+    printf("%lf %%", humidity);
     return 0;
 }
