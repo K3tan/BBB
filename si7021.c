@@ -30,7 +30,7 @@ void main()
 	write(i2cBus, 0xFE, 1);
 	sleep(1);
 	
-	// Send humidity measurement command(0xF5)
+	// Send humidity measurement command(0xE5)
 	write(i2cBus, regAddress[0], 1);
 	sleep(1);
 
@@ -48,7 +48,7 @@ void main()
 		printf("Relative Humidity : %.2f RH \n", humidityValue);
 	}
 
-    // Send temperature measurement command(0xE0)
+    // Send temperature measurement command(0xE3)
 	write(i2cBus, regAddress[1], 1);
 	sleep(1);
 
