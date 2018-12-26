@@ -7,8 +7,9 @@
 
 int main (void) {
     char buffer[1];
-    char result[2];
-    double humidity = 0;
+    char humidity_result[2];
+    char temperature_result[2];
+    float humidity = 0, temperature = 0;
     int fd;
 
     fd = open("/dev/i2c-2", O_RDWR);
@@ -25,10 +26,20 @@ int main (void) {
 
     buffer[0]=0xE5;
     write(fd, buffer, 1);
-
-    read(fd, result, 2);
-    printf("0x%02X 0x%02X \n", result[0], result[1]);
-    humidity = (double) ((((result[0] * 256.0 + result[1]) * 125.0) / 65536.0) - 6.0);
-    printf("%lf%%\n", humidity);
+    sleep(0.25);
+    read(fd, humidity_result, 2);
+    printf("0x%02X 0x%02X \n", humidity_result[0], humidity_result[1]);
+    humidity = ((((humidity_result[0] * 256 + humidity_result[1]) * 125.0) / 65536.0) - 6.0);
+    printf("%.2lf%%\n", humidity);
+    
+    
+    buffer[0]=0xE3;
+    write(fd, buffer, 1);
+    sleep(0.25);
+    read(fd, temperature_result, 2);
+    printf("0x%02X 0x%02X \n", temperature_result[0], temperature_result[1]);
+    temperature = ((((temperature_result[0] * 256 + temperature_result[1]) * 175.72) / 65536.0) - 46.85);
+    printf("%.2lf%%\n", temperature);
+    
     return 0;
 }
