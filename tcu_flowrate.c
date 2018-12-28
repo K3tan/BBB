@@ -2,6 +2,8 @@
 //  CODE WRITTEN BY:
 //  KETAN KARAMBELKAR & JAGRUTI KAPGATE
 
+// Pin numbers 19 & 20 belong to I2C bus 2.
+
 
 #include <stdio.h>
 #include <fcntl.h>
@@ -61,7 +63,7 @@ int main (void)
 
         //flow rate
         flowRate = adc_driver();
-        printf("Current flow = %f SLPM", (float)flowRate*4.096/32767.0);
+        printf("Current flow = %.2f SLPM", (float)flowRate*4.096/32767.0);
         
         //control section of TCU
         if(temperature < 5)
