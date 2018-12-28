@@ -1,4 +1,4 @@
-//  TEMPERATURE CONTROL UNIT
+//  TEMPERATURE CONTROL UNIT & FLOW-RATE MEASUREMENT
 //  CODE WRITTEN BY:
 //  KETAN KARAMBELKAR & JAGRUTI KAPGATE
 
@@ -63,6 +63,7 @@ int main (void)
 
         //flow rate
         flowRate = adc_driver();
+	//for our flow rate measurement sensor, 5V is maximum output. Therefore, voltage reading = flow meter reading
         printf("Current flow = %.2f SLPM", (float)flowRate*4.096/32767.0);
         
         //control section of TCU
