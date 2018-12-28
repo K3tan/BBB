@@ -7,6 +7,7 @@
 #include <fcntl.h>
 #include <linux/i2c-dev.h>
 #include <errno.h>
+#include <stdint.h>
 
 // Define 7-bit addresses of i2c devices
 #define SI7021_ADDR 0x40
