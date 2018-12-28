@@ -129,7 +129,7 @@ int16_t adc_driver()
     }
 
     writeBuf[0] = 0;					//set pointer register to 0 to read from the conversion register
-    write(I2CFile, writeBuf, 1);
+    write(I2C_file2, writeBuf, 1);
 
     read(I2C_file2, readBuf, 2);          //read 2 bytes into read buffer
 
