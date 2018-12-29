@@ -14,6 +14,7 @@
 // Define 7-bit addresses of i2c devices
 #define SI7021_ADDR 0x40
 #define ADS1115_ADDR 0x48       //when you connect ADDR pin to GND
+#define RELAY_PIN 		//define relay pin number here
 
 int16_t adc_driver();
 
