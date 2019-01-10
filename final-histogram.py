@@ -5,10 +5,12 @@
 # 2. data from OPCN3 in opcn3.txt file
 
 
-import matplotlib.pyplot as plt           #function for plotting ghrapg(histogram)
+import matplotlib.pyplot as plt           #function for plotting graph(histogram)
 import numpy as np
 import matplotlib
 import os
+import time
+from datetime import datetime
 
 
 text_file = open("opcn3.txt", "r")      #Reading Data from the Parent file 
@@ -40,9 +42,12 @@ def testing(array):
     plt.xlabel('x values')
     plt.ylabel('y values')
     plt.title('OPC_N3 Histogram'+' ' + timename)
+    outputfile = datetime.now().strftime("%Y%m%d-%H%M%S")
+    
     
     plt.show()
     plt.draw()
+    plt.savefig('image_' + outputfile + '.png')
     #plt.close()
     #plt.pause(0.1)
     os.remove("temp.txt")
@@ -53,6 +58,11 @@ def testing(array):
 
 tmp = 0
 while tmp<len(TT):
+    #Run C codes first
+    os.system("./tcu_flowrate")
+    #os.system("./opcn3")
+    time.sleep(2)
+
     #print(TT[tmp])
     testing(TT[tmp])   
     tmp=tmp+1
