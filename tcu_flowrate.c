@@ -10,13 +10,16 @@
 #include <linux/i2c-dev.h>
 #include <errno.h>
 #include <stdint.h>
+#include <stdlib.h>
+#include <signal.h>
+#include <time.h>
 
 // Define 7-bit addresses of i2c devices
 #define SI7021_ADDR 0x40
 #define ADS1115_ADDR 0x48       //when you connect ADDR pin to GND
-#define RELAY_PIN 		//define relay pin number here
 
 int16_t adc_driver();
+int gpio_check();
 
 int main (void) 
 {
@@ -26,6 +29,7 @@ int main (void)
     float humidity = 0, temperature = 0;    //final results
     int I2C_file1;     //file
     int16_t flowRate = 0;
+    int gpio_status;
 
     I2C_file1 = open("/dev/i2c-2", O_RDWR);    //open i2c bus
     
@@ -40,6 +44,10 @@ int main (void)
         printf("ioctl error: %s\n", strerror(errno));
         return 1;
     }
+
+    //set gpio60 port as output
+    system("echo out > /sys/class/gpio/gpio60/direction"); 
+    sleep(1);
     
     //infinite loop for continuous monitoring
     while(1)
@@ -67,22 +75,27 @@ int main (void)
 	//for our flow rate measurement sensor, 5V is maximum output. Therefore, voltage reading = flow meter reading
         printf("Current flow = %.2f SLPM", (float)flowRate*4.096/32767.0);
         
+        gpio_status = gpio_check();
         //control section of TCU
         if(temperature < 5)
         {
             // TURN HEATER ON
+            system("echo 1 > /sys/class/gpio/gpio60/value");
         }
         else if(temperature > 30)
         {
             // TURN HEATER OFF
+            system("echo 0 > /sys/class/gpio/gpio60/value");
         }    
         else if(humidity > 50 && temperature < 30)
         {
             // TURN HEATER ON
+            system("echo 1 > /sys/class/gpio/gpio60/value");
         }    
         else if(humidity > 90)
         {
             // TURN HEATER ON & OPC-N3 OFF
+            system("echo 1 > /sys/class/gpio/gpio60/value");
         }
         else if(temperature < 0)
         {
@@ -142,4 +155,15 @@ int16_t adc_driver()
 
     close(I2C_file2);
     return val;
+}
+
+int gpio_check()
+{
+    status = access("/sys/class/gpio/gpio60/value", F_OK );
+
+    if (status == -1) {
+        // file doesn't exist
+        printf("GPIO_60 file doesn't exist.\n");
+        exit(1);
+    }     
 }
