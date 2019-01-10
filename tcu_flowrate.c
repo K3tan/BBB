@@ -3,6 +3,7 @@
 //  KETAN KARAMBELKAR & JAGRUTI KAPGATE
 
 // Pin numbers 19 & 20 belong to I2C bus 2.
+// GPIO_60 = Pin 12 on P9 header of BeagleBone.
 
 
 #include <stdio.h>
