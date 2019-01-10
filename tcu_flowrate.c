@@ -160,7 +160,8 @@ int16_t adc_driver()
 
 int gpio_check()
 {
-    status = access("/sys/class/gpio/gpio60/value", F_OK );
+     int status;	
+     status = access("/sys/class/gpio/gpio60/value", F_OK );
 
     if (status == -1) {
         // file doesn't exist
